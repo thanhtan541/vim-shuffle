@@ -1,7 +1,9 @@
 function! StringListShuffle()
     let selected_string = GetVisualSelection()
-    echo 'something'
-    echo reverse(selected_string) 
+    let string_list = split(selected_string, ',')
+    let string_reversed = reverse(string_list )
+    let @a = join(string_reversed , ",")
+    normal "ap
 endfunction
 
 function! GetVisualSelection()
@@ -22,5 +24,9 @@ function! GetVisualSelection()
     endif
     let lines[-1] = lines[-1][: column_end - 1]
     let lines[0] = lines[0][column_start - 1:]
-    return lines
+    return lines[0]
+endfunction
+
+function! PasteStringIntoSelection()
+    echo 'Something'
 endfunction
