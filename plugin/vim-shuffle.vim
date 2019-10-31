@@ -1,9 +1,17 @@
 function! StringListShuffle()
     let selected_string = GetVisualSelection()
+    echo selected_string 
     let string_list = split(selected_string, ',')
     let string_reversed = reverse(string_list )
-    let @a = join(string_reversed , ",")
-    normal "ap
+    " Assign tmp values into registers a and b
+    echo string_reversed 
+    let @8 = join(string_reversed , ",")
+    let @9 = selected_string
+    echo selected_string
+    " search and repalce 
+    exec '/' . @b
+    normal! k
+    exec ': s/' . @b . '/' . @a
 endfunction
 
 function! GetVisualSelection()
