@@ -9,14 +9,16 @@ function! ReverseParamOrder()
 endfunction
 
 function! BreakParamIntoLine()
-    let glue = '\r'
+    let new_line = '\r'
+    let glue = ',\r'
     let delimiter = ', '
     let selected_string = GetVisualSelection()
     let split_string = split(selected_string, delimiter)
     let joined_string = join(split_string, glue)
     
-    execute 's/'. selected_string . '/' . glue . joined_string . glue
-    normal! =
+
+    execute 's/'. selected_string . '/' . new_line . joined_string . glue
+    call IndentTextInLineRange([6,9])
 endfunction
 
 function! GetVisualSelection()
@@ -42,3 +44,9 @@ function! GetVisualSelection()
     return lines[0]
 endfunction
 
+function! IndentTextInLineRange(list)
+    let line_start = a:list[0]
+    let line_end = a:list[1]
+
+    execute 'normal! ' . line_start . 'G' . '=' . line_end . 'G'
+endfunction
