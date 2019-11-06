@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! ReverseParamOrder()
     let glue = ', '
     let delimiter = ', '
@@ -14,11 +16,13 @@ function! BreakParamIntoLine()
     let delimiter = ', '
     let selected_string = GetVisualSelection()
     let split_string = split(selected_string, delimiter)
+    let length_string_list = len(split_string)
     let joined_string = join(split_string, glue)
-    
+    let line_start = getpos("'<")[1]
+    let line_range = [line_start+1, line_start+length_string_list+1]
 
     execute 's/'. selected_string . '/' . new_line . joined_string . glue
-    call IndentTextInLineRange([6,9])
+    call IndentTextInLineRange(line_range)
 endfunction
 
 function! GetVisualSelection()
