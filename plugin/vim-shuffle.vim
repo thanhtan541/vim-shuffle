@@ -37,7 +37,7 @@ function! GetVisualSelection()
         let [line_start, column_start, line_end, column_end] =
                     \   [line_end, column_end, line_start, column_start]
     end
-    
+
     let lines = getline(line_start, line_end)
     if len(lines) == 0
         return ''
