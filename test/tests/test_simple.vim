@@ -11,7 +11,7 @@ endfunction
 
 function Test_Simple_February()
   call feedkeys( "iF\<C-x>\<C-u>", 'xt' )
-  call assert_equal( 'Feb', getline( 2 ) )
+  call assert_equal( 'Feb', getline( 1 ) )
   %bwipe!
 endfunction
 
