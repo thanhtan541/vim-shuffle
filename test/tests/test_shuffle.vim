@@ -1,5 +1,5 @@
 function SetUp()
-    let init_script = g:test_path . '/../support/test_simple.vim'
+    let init_script = g:test_path . '/../lib/test_simple.vim'
     execute 'source ' . init_script
 endfunction
 
@@ -42,6 +42,13 @@ function Test_Shuffle_Raw_Input_Values()
     call feedkeys( "i(\"one\" , \"two\" , 12)", 'xt' )
     call shuffle#OrderParams()
     call assert_equal( '(12, "two", "one")', getline( 1 ) )
+    %bwipe!
+endfunction
+
+function Test_Shuffle_Other_Raw_Input_Values()
+    call feedkeys( "i('one' , 'two' , 12)", 'xt' )
+    call shuffle#OrderParams()
+    call assert_equal( "(12, 'two', 'one')", getline( 1 ) )
     %bwipe!
 endfunction
 
