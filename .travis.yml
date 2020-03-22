@@ -1,8 +1,10 @@
 language: bash
 
 before_script:
-  - sudo apt-get update
-  - sudo apt-get -y install vim
+  - git clone https://github.com/vim/vim.git
+  - cd vim/src
+  - make
+  - sudo make install
 
 script:
   - vim --clean -S test/run_test.vim test/tests/test_shuffle.vim
