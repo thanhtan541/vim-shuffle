@@ -3,8 +3,9 @@ language: bash
 before_script:
   - git clone https://github.com/vim/vim.git
   - cd vim/src
+  - ./configure
   - make
-  - sudo make install
+  - sudo make checkinstall
 
 script:
   - vim --clean -S test/run_test.vim test/tests/test_shuffle.vim
