@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/thanhtan541/vim-shuffle.svg?branch=master)](https://travis-ci.org/thanhtan541/vim-shuffle)
 # vim-suffer
 
 ## test
