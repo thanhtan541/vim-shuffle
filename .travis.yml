@@ -5,7 +5,7 @@ before_script:
   - cd vim/src
   - ./configure
   - make
-  - sudo make checkinstall
+  - sudo make install
 
 script:
   - vim --clean -S test/run_test.vim test/tests/test_shuffle.vim
