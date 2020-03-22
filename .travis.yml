@@ -1,0 +1,9 @@
+language: bash
+
+dist: bionic
+
+script:
+  - vim --clean -S test/run_test.vim test/tests/test_shuffle.vim
+
+after_script:
+  - cat test/tests/test_shuffle.vim.failed.log
