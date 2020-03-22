@@ -1,8 +1,8 @@
 language: bash
 
 before_script:
-  - apt-get update
-  - apt-get install vim
+  - sudo apt-get update
+  - sudo apt-get -y install vim
 
 script:
   - vim --clean -S test/run_test.vim test/tests/test_shuffle.vim
