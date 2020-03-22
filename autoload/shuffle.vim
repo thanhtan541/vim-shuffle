@@ -2,7 +2,7 @@ scriptencoding utf-8
 
 echom "Shuffle - Autoloading... "
 
-let s:pattern = '[^a-zA-Z0-9_"''$=]\+'
+let s:pattern = '[^a-zA-Z0-9_$=]\+'
 let s:glue = ', '
 
 " desc: Shuffle params into better presentation
