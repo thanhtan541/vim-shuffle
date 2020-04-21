@@ -1,6 +1,6 @@
 let g:test_name = expand( "%:p:t" )
 let g:test_path = expand( "%:p:h" )
-let g:logfile = g:test_path . "/" . g:test_name . ".failed.log"
+let g:logfile = g:test_path . "/../logs/" . g:test_name . ".failed.log"
 
 " Source the file that's open and close it
 source %
