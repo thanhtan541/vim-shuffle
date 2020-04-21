@@ -3,34 +3,48 @@ scriptencoding utf-8
 echom "Shuffle - Autoloading... "
 
 let s:pattern = '[^a-zA-Z0-9_"''$=]\+'
-let s:glue = ', '
+let s:glue = ',\r'
+let s:newline = ''
 
 " desc: Shuffle params into better presentation
-" a:type -> str
-" a:revert -> bool = 1|0
-function! shuffle#OrderParams() abort
+" a:sort -> 1 | 0
+" a:fold -> bool = 1|0
+function! shuffle#OrderParams(sort, fold) abort
     if getline ( '.' ) == ''
         return 0
     endif
 
     let check_point = s:FlaskPoint()
-    echo 
     if check_point == -1
         return 0
     else
         let column = check_point + 1
     endif
 
+    let indent_times = s:MeasureIndentTimes()
+    let init_line = line( '.' )
     execute "normal! " . column . "|"
     normal! vi)y
     let list_items = split( @@, s:pattern )
-    if len( list_items ) <= 1
+    let items_len = len( list_items )
+    if items_len <= 1
         return 0
     endif
 
-    let reversed_items = reverse( list_items )
-    let @@ = join( reversed_items, s:glue )
-    normal! gvp
+    if a:sort
+        call reverse( list_items )
+    endif
+    if a:fold
+        let s:glue = ', '
+    else
+        let s:newline = '\r'
+    endif
+
+    let joined_string = join( list_items, s:glue )
+    execute 's/'. @@ . '/'. s:newline . joined_string . s:newline . repeat( ' ', indent( '.' ) )
+    if !a:fold
+        execute (init_line + 1) . ',' . (init_line + items_len) . repeat( '>', indent_times )
+    endif
 endfunction
 
 " desc: Check valid argument point
@@ -38,4 +52,12 @@ endfunction
 " return : bool
 function! s:FlaskPoint()
     return match( getline( '.' ), '(' )
+endfunction
+
+" desc: Count the indent space of current line
+" note : Maybe vary between languages
+" return : int
+function! s:MeasureIndentTimes()
+    let init_indent = indent( '.' )
+    return init_indent / &shiftwidth + 1
 endfunction

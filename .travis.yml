@@ -3,7 +3,8 @@ language: bash
 dist: bionic
 
 script:
-  - vim --clean -S test/run_test.vim test/tests/test_shuffle.vim
+  - mkdir test/logs
+  - bash ./test/run_test.sh
 
 after_script:
-  - cat test/tests/test_shuffle.vim.failed.log
+  - cat test/logs/*.log
