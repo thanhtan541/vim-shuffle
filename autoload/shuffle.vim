@@ -5,6 +5,7 @@ echom "Shuffle - Autoloading... "
 let s:pattern = '[^a-zA-Z0-9_"''$=]\+'
 let s:glue = ',\r'
 let s:newline = ''
+let s:trailing = ''
 
 " desc: Shuffle params into better presentation
 " a:sort -> 1 | 0
@@ -38,10 +39,11 @@ function! shuffle#OrderParams(sort, fold) abort
         let s:glue = ', '
     else
         let s:newline = '\r'
+        let s:trailing = repeat( ' ', indent( '.' ) )
     endif
 
     let joined_string = join( list_items, s:glue )
-    execute 's/'. @@ . '/'. s:newline . joined_string . s:newline . repeat( ' ', indent( '.' ) )
+    execute 's/'. @@ . '/'. s:newline . joined_string . s:newline . s:trailing
     if !a:fold
         execute (init_line + 1) . ',' . (init_line + items_len) . repeat( '>', indent_times )
     endif
