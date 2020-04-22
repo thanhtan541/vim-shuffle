@@ -89,3 +89,12 @@ function Test_Shuffle_Real_Life_Raw_Input_Case()
     call assert_equal( 'let test = doTest(foo=2, bar=1)', getline( 1 ) )
     %bwipe!
 endfunction
+
+function Test_Shuffle_Indent_Method()
+    let indent_spaces = repeat( ' ', &shiftwidth )
+    call feedkeys( "i" . indent_spaces .  "(bar=1, foo=2)", 'xt' )
+    call feedkeys( "^", 'xt' )
+    call shuffle#OrderParams(1, 1)
+    call assert_equal( indent_spaces . '(foo=2, bar=1)', getline( 1 ) )
+    %bwipe!
+endfunction
