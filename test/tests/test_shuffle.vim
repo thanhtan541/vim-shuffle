@@ -10,6 +10,13 @@ function Test_Shuffle_Nothing_Case()
     %bwipe!
 endfunction
 
+function Test_Shuffle_Empty_Params_Case()
+    call feedkeys( "i()", 'xt' )
+    call shuffle#OrderParams(1, 1)
+    call assert_equal( '()', getline( 1 ) )
+    %bwipe!
+endfunction
+
 function Test_Shuffle_Not_Qualify_Case()
     call feedkeys( "ilet a = something", 'xt' )
     call feedkeys( "^", 'xt' )

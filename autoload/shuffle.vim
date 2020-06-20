@@ -24,9 +24,13 @@ function! shuffle#OrderParams(sort, fold) abort
 
     let indent_times = s:MeasureIndentTimes()
     let init_line = line( '.' )
+    let tmp_string = @@
     execute "normal! " . column . "|"
-    normal! vi)y
-    let list_items = split( @@, s:pattern )
+    execute "normal! vi)y\<esc>"
+    let selected_string = @@
+    let @@ = tmp_string
+    
+    let list_items = split( selected_string, s:pattern )
     let items_len = len( list_items )
     if items_len <= 1
         return 0
@@ -43,7 +47,7 @@ function! shuffle#OrderParams(sort, fold) abort
     endif
 
     let joined_string = join( list_items, s:glue )
-    execute 's/'. @@ . '/'. s:newline . joined_string . s:newline . s:trailing
+    execute 's/'. selected_string . '/'. s:newline . joined_string . s:newline . s:trailing
     if !a:fold
         execute (init_line + 1) . ',' . (init_line + items_len) . repeat( '>', indent_times )
     endif
