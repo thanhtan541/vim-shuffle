@@ -26,7 +26,8 @@ function! shuffle#OrderParams(sort, fold) abort
     let init_line = line( '.' )
     let tmp_string = @@
     execute "normal! " . column . "|"
-    execute "normal! vi)y\<esc>"
+    execute "normal! vi)y"
+    execute "normal! \<esc>"
     let selected_string = @@
     let @@ = tmp_string
     
@@ -47,7 +48,12 @@ function! shuffle#OrderParams(sort, fold) abort
     endif
 
     let joined_string = join( list_items, s:glue )
-    execute 's/'. selected_string . '/'. s:newline . joined_string . s:newline . s:trailing
+    try
+        execute 's/'. selected_string . '/'. s:newline . joined_string . s:newline . s:trailing
+    catch
+        return
+    endtry
+    
     if !a:fold
         execute (init_line + 1) . ',' . (init_line + items_len) . repeat( '>', indent_times )
     endif
